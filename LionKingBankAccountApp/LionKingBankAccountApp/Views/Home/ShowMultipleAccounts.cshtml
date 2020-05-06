@@ -1,0 +1,52 @@
+﻿@model LionKingBankAccountApp.Models.BankAccountList
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    @{ var index = 1;}
+    <table>
+        <tr>
+            <td># </td>
+            <td>Name</td>
+            <td>Balance</td>
+            <td>Animal type</td>
+            <td>Status</td>
+            <td>Bad or Good</td>
+        </tr>
+        @foreach (var item in Model.accounts)
+        {
+
+            <tr>
+                <td> @index.</td>
+                <td> @item.Name</td>
+                <td> @item.Balance</td>
+                <td> @item.AnimalType</td>
+                <td>
+                    @if (item.IsKing)
+                    {
+                        <p style="color:aquamarine">King</p>
+
+                    }
+                </td>
+                <td>
+                    @if (item.IsBad)
+                    {
+                        <p>Bad Guy</p>
+                    }
+                    else
+                    {
+                        <p>Good One</p>
+                    }
+                </td>
+                @{ index++;}
+            </tr>
+        }
+    </table>
+    @Html.BeginForm("RaiseTheBalance", "Home", FormMethod.Post)
+    <input type="text" name="Name" />
+
+
+</body>
+</html>
+

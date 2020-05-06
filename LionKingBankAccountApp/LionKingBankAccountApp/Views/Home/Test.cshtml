@@ -1,0 +1,80 @@
+﻿@model LionKingBankAccountApp.Models.BankAccountList
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bank of Simba</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/StyleSheet.css" />
+</head>
+<body>
+    <header class="main-header">
+        <div class="main-header__logo">
+            <h1>Bank of Simba</h1>
+        </div>
+      
+    </header>
+    <section class="data-view">
+        @{ var index = 1;}
+        <table>
+            <tr class="data-view__header">
+                <td>#</td>
+                <td>Name</td>
+                <td>Balance</td>
+                <td>Animal Type</td>
+                <td>Status</td>
+                <td>Good or Bad</td>
+            </tr>
+            @foreach (var item in Model.accounts)
+            {
+                <tr style=@item.Color>
+                    <td> @index.</td>
+                    <td> @item.Name</td>
+                    <td> @item.Balance.ToString("0.00 Zebra")</td>
+                    <td> @item.AnimalType</td>
+                    <td>
+                        @if (item.IsKing)
+                        {
+                            <p>King</p>
+                        }
+                        else
+                        {
+                            <p>Paesant</p>
+                        }
+                    </td>
+                    <td>
+                        @if (item.IsBad)
+                        {
+                            <p>Bad Guy</p>
+                        }
+                        else
+                        {
+                            <p>Good One</p>
+                        }
+                    </td>
+                    @{ index++;}
+                </tr>
+            }
+        </table>
+        @using (Html.BeginForm("RaiseTheBalance", "Home", FormMethod.Post))
+        {
+            <input type="hidden" name="increment" value="10" />
+            <input class="btn-menu" type="submit" value="Raise Balance" />}
+
+        @using (Html.BeginForm("AddNewAccount", "Home", FormMethod.Post))
+        {
+            <input type="text" name="name" />
+            <input type="number" name="balance" />
+            <input type="text" name="animalType" />
+            <select name="isKing">
+                <option value="false">Paesant</option>
+                <option value="true">King</option>
+            </select>
+            <select name="isBad">
+                <option value="false">Good One</option>
+                <option value="true">Bad Guy</option>
+            </select>
+            <input type="submit" />
+        }
+    </section>
+</body>
+</html>
